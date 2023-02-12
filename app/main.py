@@ -1,11 +1,9 @@
 import json
 import requests
 
-from pprint import pprint
-
 from flask import Flask
 from flask import render_template
-
+from flask_scheduler import Scheduler
 from bs4 import BeautifulSoup as bs
 
 # pip install -r requirements.txt
@@ -13,6 +11,15 @@ from bs4 import BeautifulSoup as bs
 # flask --app main --debug run --port=8000
 
 app = Flask(__name__)
+
+scheduler = Scheduler(app)
+
+@scheduler.runner(interval=60)
+def parse_news_task():
+    print(
+        "Задача собирает новости с нужным интервалом"
+        " и создает некоторые обновляемые данные."
+    )
 
 @app.route("/")
 def index():
