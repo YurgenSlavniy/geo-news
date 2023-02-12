@@ -1,4 +1,22 @@
 $(document).ready(function() {
+    // открывает дополнительные окна
+    for (let i = 1; i <= 5; i++) {
+        $("#link-" + i).on("click", function(e) {
+            e.preventDefault()
+            $("#map-container").hide(500);
+            $("#news-container").hide(500);
+            for (let j = 1; j <= 5; j++) {
+                $("#block-"+j).hide();
+            }
+            $("#block-"+i).show(500);
+        });
+    }
+    // закрывает дополнительные окна
+    $(".block-close").click(function(e) {
+        var n = $(this).data("block")
+        $("#block-"+n).hide(500);
+        $("#map-container").show(500);
+    });
 
     // получает новости и отображает их
     function fetchNews(id) {

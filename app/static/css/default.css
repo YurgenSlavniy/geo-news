@@ -29,6 +29,9 @@ footer {
     border: 1px solid red;
 }
 
+.block {}
+.block-close {}
+
 .mapael .zoomButton {
     background-color: #fff;
     border: 1px solid #ccc;
