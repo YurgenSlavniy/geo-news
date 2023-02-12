@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <!-- start верхнее меню -->
     <div class="container">
         <header class="row">
             <div class="col-12">
@@ -35,11 +36,17 @@
         </header>
         <hr>
     </div>
+    <!-- end верхнее меню -->
+
+    <!-- start карта -->
     <div id="map-container" class="container content" style="margin-top: 50px;">
         <div class="map_container">
-            <div class="map text-center">Карта не доступна.</div>
+            <div class="map text-center">...</div>
         </div>
     </div>
+    <!-- end карта -->
+
+    <!-- start блок с новостями -->
     <div id="news-container" class="container content" style="display: none;">
         <div class="card">
             <div class="is-right">
@@ -49,6 +56,9 @@
             <div id="news-content"></div>
         </div>
     </div>
+    <!-- end блок с новостями -->
+
+    <!-- start подвал страницы -->
     <div class="container mt-50">
         <footer class="row footer">
             <div class="col-12">
@@ -61,6 +71,8 @@
             </div>
         </footer>
     </div>
+    <!-- end подвал страницы -->
+    
     <script src="{{ url_for('static', filename='js/maps/jquery.mapael.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/maps/world_countries.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

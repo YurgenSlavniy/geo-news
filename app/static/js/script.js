@@ -1,11 +1,39 @@
 $(document).ready(function() {
-	var count = 0;
+
+    // получает новости и отображает их
+    function fetchNews(id) {
+        $.ajax({
+            url: "/parse/news/" + id + "/",
+            method: "GET",
+        }).done(function(response) {
+            try {
+                response = JSON.parse(response);
+            } catch(err) {
+                console.error(err);
+                return;
+            }
+            var newsContent = $("#news-content");
+            var html = '';
+            for (var i = 0; i < response.length; i++) {
+                html += "<div class='card' style='margin: 10px 0 0 0;'>";
+                html += "<h3>"+ response[i].title +"</h3>";
+                html += "<p>"+ response[i].content +"</p>";
+                html += "</div>";
+            }
+            newsContent.html(html)
+        }).catch(function(err) {
+            console.log(err)
+        })
+    }
+
+    // закрывает блок с новостями
     $("#news-close").on("click", function(e) {
-        $("#map-container").show(500)
-        $("#news-container").hide(500)
+        $("#map-container").show(500);
+        $("#news-container").hide(500);
     });
 
-    var m = $(".map_container").mapael({
+    // отображение карты
+    $(".map_container").mapael({
         map: {
             name: "world_countries",
             zoom: {
@@ -33,13 +61,17 @@ $(document).ready(function() {
                 },
                 eventHandlers: {
                     click: function(e, id, mapElem, textElem) {
+                        $("#map-container").hide(500)
+                        $("#news-container").show(500)
+                        $("#news-content").attr("data-areas", id)
+                        fetchNews(id)
                         // var newData = {
                         //     'areas': {}
                         // };
                         // if (mapElem.originalAttrs.fill == "#5ba4ff") {
                         //     newData.areas[id] = {
                         //         attrs: {
-                        //             fill: "#0088db"
+                        //             fill: "#343434"
                         //         }
                         //     };
                         // } else {
@@ -48,11 +80,17 @@ $(document).ready(function() {
                         //             fill: "#5ba4ff"
                         //         }
                         //     };
+
+                        //     countries.push(id)
+                        //     if (countries.length === 2) {
+                        //         $("#map-container").hide(500)
+                        //         $("#news-container").show(500)
+                        //         $("#news-content").attr("data-areas", countries)
+                        //         $("#news-content").text("Новости для " + countries.toString())
+                        //         countries = []
+                        //     }
                         // }
                         // $(".map_container").trigger('update', [{ mapOptions: newData }]);
-                        $("#map-container").hide(500)
-                        $("#news-container").show(500)
-                        $("#news-content").text(id + " Новости")
                     }
                 }
             }
