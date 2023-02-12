@@ -17,7 +17,7 @@ $(document).ready(function() {
             for (var i = 0; i < response.length; i++) {
                 html += "<div class='card' style='margin: 10px 0 0 0;'>";
                 html += "<h3>"+ response[i].title +"</h3>";
-                html += "<p>"+ response[i].content +"</p>";
+                html += "<img src='"+ response[i].image +"'>";
                 html += "</div>";
             }
             newsContent.html(html)
