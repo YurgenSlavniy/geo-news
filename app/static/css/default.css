@@ -30,7 +30,9 @@ footer {
 }
 
 .block {}
-.block-close {}
+.block-close {
+    cursor: pointer;
+}
 
 .mapael .zoomButton {
     background-color: #fff;

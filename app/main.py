@@ -10,6 +10,13 @@ from bs4 import BeautifulSoup as bs
 # cd app
 # flask --app main --debug run --port=8000
 
+# rss chanels
+# https://ria.ru/export/rss2/archive/index.xml
+# https://rssexport.rbc.ru/rbcnews/news/30/full.rss
+# https://tass.ru/rss/v2.xml
+# https://regnum.ru/rss/news.html
+# https://www.interfax.ru/rss.asp
+
 app = Flask(__name__)
 
 scheduler = Scheduler(app)
