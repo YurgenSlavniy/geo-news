@@ -30,13 +30,17 @@ $(document).ready(function() {
                 console.error(err);
                 return;
             }
+            // console.log(response)
             var newsContent = $("#news-content");
             var html = '';
             for (var i = 0; i < response.length; i++) {
-                html += "<div class='card' style='margin: 10px 0 0 0;'>";
-                html += "<h3>"+ response[i].title +"</h3>";
-                html += "<img src='"+ response[i].image +"'>";
-                html += "</div>";
+                if (response[i][2] !== "") {
+                    html += "<div class='card' style='margin: 10px 0 0 0;'>";
+                    html += "<h3><a href='"+ response[i][1] +"'>" + i + " " +response[i][0]
+                    html += "</a></h3>";
+                    // html += "<img src='"+ response[i][2] +"'>";
+                    html += "</div>";
+                }
             }
             newsContent.html(html)
         }).catch(function(err) {
