@@ -1,5 +1,24 @@
 $(document).ready(function() {
     var countryCodes = []
+
+    function clearSelectionOnMap() {
+        for (var i = 0; i < countryCodes.length; i++) {
+            var id = countryCodes[i]
+            var newData = {
+                "areas": {}
+            }
+            newData.areas[id] = {
+                attrs: {
+                    fill: "#343434"
+                }
+            };
+            $(".map_container").trigger('update', [{ mapOptions: newData }]);
+        }
+        console.log("countryCodes, close action", countryCodes)
+        countryCodes = []
+        console.log("countryCodes, close action", countryCodes)
+    }
+
     // открывает дополнительные окна
     for (let i = 1; i <= 5; i++) {
         $("#link-" + i).on("click", function(e) {
@@ -17,6 +36,7 @@ $(document).ready(function() {
         var n = $(this).data("block")
         $("#block-" + n).hide(500);
         $("#map-container").show(500);
+        clearSelectionOnMap()
     });
 
     // получает новости и отображает их
@@ -56,21 +76,7 @@ $(document).ready(function() {
     $("#news-close").on("click", function(e) {
         $("#map-container").show(500);
         $("#news-container").hide(500);
-        for (var i = 0; i < countryCodes.length; i++) {
-            var id = countryCodes[i]
-            var newData = {
-                "areas": {}
-            }
-            newData.areas[id] = {
-                attrs: {
-                    fill: "#343434"
-                }
-            };
-            $(".map_container").trigger('update', [{ mapOptions: newData }]);
-        }
-        console.log("countryCodes, close action", countryCodes)
-        countryCodes = []
-        console.log("countryCodes, close action", countryCodes)
+        clearSelectionOnMap()
     });
 
     // отображение карты
@@ -106,7 +112,7 @@ $(document).ready(function() {
                         if (countryCodes.length === 2) {
                             $("#map-container").hide(500)
                             $("#news-container").show(500)
-                            
+
                             fetchNews(countryCodes[0], countryCodes[1])
                             console.log("countryCodes, show action", countryCodes)
                         }
