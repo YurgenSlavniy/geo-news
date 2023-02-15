@@ -52,8 +52,11 @@
             <div class="is-right">
                 <img id="news-close" width="30" src="{{ url_for('static', filename='img/svg/delete.svg') }}" alt="close">
             </div>
-            <h3 class="">window for news</h3>
-            <div id="news-content"></div>
+            <h3 id="news-title-win" class="">window for news</h3>
+            <div id="news-content" class="row">
+                <div id="left-content" class="col-6"></div>
+                <div id="right-content" class="col-6"></div>
+            </div>
         </div>
     </div>
     <!-- end блок с новостями -->
