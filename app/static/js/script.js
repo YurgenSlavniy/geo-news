@@ -34,13 +34,13 @@ $(document).ready(function() {
             var newsContent = $("#news-content");
             var html = '';
             for (var i = 0; i < response.length; i++) {
-                if (response[i][2] !== "") {
+                // if (response[i][2] !== "") {
                     html += "<div class='card' style='margin: 10px 0 0 0;'>";
                     html += "<h3><a href='"+ response[i][1] +"'>" + i + " " +response[i][0]
                     html += "</a></h3>";
                     // html += "<img src='"+ response[i][2] +"'>";
                     html += "</div>";
-                }
+                // }
             }
             newsContent.html(html)
         }).catch(function(err) {
