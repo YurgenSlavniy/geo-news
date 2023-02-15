@@ -1,6 +1,7 @@
 import os
 import uuid
 import json
+import atexit
 import sqlite3
 import requests
 
@@ -57,7 +58,10 @@ def parser():
     cursor.execute(QUERY_CREATE_TABLE)
 
     for i, chanel in enumerate(CHANELS):
-        response = requests.get(chanel)
+        try:
+            response = requests.get(chanel)
+        except Exception as e:
+            continue
         if response.status_code == 200:
             soup = bs(response.text, 'xml')
             for item in soup.find_all("item"):
@@ -79,6 +83,21 @@ def parser():
     print("dbname:", dbname)
     connection.close()
 
+def clear_news():
+    while True:
+        if len(dbname_old_list) == 0:
+            break
+        file_name = dbname_old_list.pop(0)
+        if os.path.isfile(file_name):
+            print("[REMOVE DB]", file_name)
+            os.remove(file_name)
+
+def close_app():
+    dbname_old_list.append(dbname)
+    clear_news()
+
+atexit.register(close_app)
+
 class Config:
     SCHEDULER_API_ENABLED = True
 
@@ -96,13 +115,7 @@ def parse_new_news():
 
 @scheduler.task('interval', id='delete_old_news', seconds=25, max_instances=1)
 def delete_old_news():
-    while True:
-        if len(dbname_old_list) == 0:
-            break
-        file_name = dbname_old_list.pop(0)
-        if os.path.isfile(file_name):
-            print("[REMOVE DB]", file_name)
-            os.remove(file_name)
+    clear_news()
 
 scheduler.start()
 
