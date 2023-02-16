@@ -163,7 +163,7 @@ def parse_news(leftID, rightID):
         # полно-текстой поиск по БД по словам через или
         l = cursor.execute(f"SELECT title, link, media FROM news_content WHERE title MATCH '{related_words_left}'").fetchall()
         r = cursor.execute(f"SELECT title, link, media FROM news_content WHERE title MATCH '{related_words_right}'").fetchall()
-        if l and r:
+        if l or r:
             connection.close()
             return json.dumps({"left": l, "right": r})
         connection.close()
