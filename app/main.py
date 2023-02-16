@@ -152,5 +152,6 @@ def parse_news(leftID, rightID):
         if l and r:
             connection.close()
             return json.dumps({"left": l, "right": r})
+        connection.close()
 
     return json.dumps({"left": [], "right": []})
