@@ -58,7 +58,7 @@ $(document).ready(function() {
                 var html = '';
                 for (var i = 0; i < response.length; i++) {
                     html += "<div class='card' style='margin: 10px 0 0 0;'>";
-                    html += "<h5><a href='" + response[i][1] + "'>" + i + " " + response[i][0]
+                    html += "<h5><a target='_blank' href='" + response[i][1] + "'>" + i + " " + response[i][0]
                     html += "</a></h5>";
                     html += "</div>";
                 }
