@@ -22,11 +22,11 @@
                         <a class="brand text-white logo" href="/">GEONEWS</a>
                     </div>
                     <div class="tabs hide-xs hide-sm">
-                        <a id="link-1" href="">link1</a>
-                        <a id="link-2" href="">link2</a>
-                        <a id="link-3" href="">link3</a>
-                        <a id="link-4" href="">link4</a>
-                        <a id="link-5" href="">link5</a>
+                        <a id="link-1" href="">About</a>
+                        <a id="link-2" href="">Random News</a>
+                        <a id="link-3" href="">Our Mission</a>
+                        <a id="link-4" href="">Contacts Us</a>
+                        <a id="link-5" href="">We Wont Do It</a>
                     </div>
                     <div class="nav-right">
                         <!--  -->
@@ -52,8 +52,11 @@
             <div class="is-right">
                 <img id="news-close" width="30" src="{{ url_for('static', filename='img/svg/delete.svg') }}" alt="close">
             </div>
-            <h3 class="">window for news</h3>
-            <div id="news-content"></div>
+            <h3 id="news-title-win" class="">window for news</h3>
+            <div id="news-content" class="row">
+                <div id="left-content" class="col-6"></div>
+                <div id="right-content" class="col-6"></div>
+            </div>
         </div>
     </div>
     <!-- end блок с новостями -->
@@ -64,7 +67,12 @@
             <div class="is-right">
                 <img data-block="1" class="block-close" width="30" src="{{ url_for('static', filename='img/svg/delete.svg') }}" alt="close">
             </div>
-            <h3 class="">block 1</h3>
+            <h3 class="block_content">
+            
+                <h1>Данный ресурс предназначен для ознокомления с основными заголовками СМИ.</h1><br><br>
+                Мы в автоматическом режиме собираем новости с многочисленных интернет ресурсов, агригируем их, обрабатываем, сортируем и предлагаем пользователю настроить под себя новостную выдачу. <br><br> Также мы предложим возможность сравнить новости разных новостных ресурсов, найти противоречивые новости, посмотреть архив новостей. Мы предложим новостную аналитику по многим параметрам. <br> Мы даём информацию, получая новости. 
+            
+            </h3>
             <p>...</p>
         </div>
     </div>
@@ -112,7 +120,16 @@
             <div class="is-right">
                 <img data-block="5" class="block-close" width="30" src="{{ url_for('static', filename='img/svg/delete.svg') }}" alt="close">
             </div>
-            <h3 class="">block 5</h3>
+            <h3 class="block_content">
+                
+                <h1>Мы развиваем свой продукт:</h1><br><br>
+                - запустить телеграмм бота который спрашивает пользователя - Показать вам новости? и если пользователь  пишет ДА - выдаёт 5 новостей в чат. <br>
+                - добавить ещё одну кликабельную страну, которая покажет контент при её выборе. итого будет 2 кликабельные страны - Россия и следующая <br>
+                - проработать страницы ссылок которые в шапке. 5 ссылок 5 html страниц <br>
+                - разработка базы данных для сбора новостей. Надо обсудить. (MySQL) <br>
+                - категоризация новостей. Проумать список категорий. 
+                
+            </h3>
             <p>...</p>
         </div>
     </div>

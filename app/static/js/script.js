@@ -1,4 +1,24 @@
 $(document).ready(function() {
+    var countryCodes = []
+
+    function clearSelectionOnMap() {
+        for (var i = 0; i < countryCodes.length; i++) {
+            var id = countryCodes[i]
+            var newData = {
+                "areas": {}
+            }
+            newData.areas[id] = {
+                attrs: {
+                    fill: "#343434"
+                }
+            };
+            $(".map_container").trigger('update', [{ mapOptions: newData }]);
+        }
+        console.log("countryCodes, close action", countryCodes)
+        countryCodes = []
+        console.log("countryCodes, close action", countryCodes)
+    }
+
     // открывает дополнительные окна
     for (let i = 1; i <= 5; i++) {
         $("#link-" + i).on("click", function(e) {
@@ -6,39 +26,47 @@ $(document).ready(function() {
             $("#map-container").hide(500);
             $("#news-container").hide(500);
             for (let j = 1; j <= 5; j++) {
-                $("#block-"+j).hide();
+                $("#block-" + j).hide();
             }
-            $("#block-"+i).show(500);
+            $("#block-" + i).show(500);
         });
     }
     // закрывает дополнительные окна
     $(".block-close").click(function(e) {
         var n = $(this).data("block")
-        $("#block-"+n).hide(500);
+        $("#block-" + n).hide(500);
         $("#map-container").show(500);
+        clearSelectionOnMap()
     });
 
     // получает новости и отображает их
-    function fetchNews(id) {
+    function fetchNews(leftID, rightID) {
         $.ajax({
-            url: "/parse/news/" + id + "/",
+            url: "/parse/news/" + leftID + "/" + rightID + "/",
             method: "GET",
         }).done(function(response) {
             try {
                 response = JSON.parse(response);
-            } catch(err) {
+                var leftContent = response.left
+                var rightContent = response.right
+            } catch (err) {
                 console.error(err);
                 return;
             }
-            var newsContent = $("#news-content");
-            var html = '';
-            for (var i = 0; i < response.length; i++) {
-                html += "<div class='card' style='margin: 10px 0 0 0;'>";
-                html += "<h3>"+ response[i].title +"</h3>";
-                html += "<img src='"+ response[i].image +"'>";
-                html += "</div>";
+
+            function getHTML(response) {
+                var html = '';
+                for (var i = 0; i < response.length; i++) {
+                    html += "<div class='card' style='margin: 10px 0 0 0;'>";
+                    html += "<h5><a target='_blank' href='" + response[i][1] + "'>" + i + " " + response[i][0]
+                    html += "</a></h5>";
+                    html += "</div>";
+                }
+                return html
             }
-            newsContent.html(html)
+            $("#news-title-win").text("Новости " + leftID + ", " + rightID)
+            $("#left-content").html(getHTML(leftContent))
+            $("#right-content").html(getHTML(rightContent))
         }).catch(function(err) {
             console.log(err)
         })
@@ -48,6 +76,7 @@ $(document).ready(function() {
     $("#news-close").on("click", function(e) {
         $("#map-container").show(500);
         $("#news-container").hide(500);
+        clearSelectionOnMap()
     });
 
     // отображение карты
@@ -79,10 +108,24 @@ $(document).ready(function() {
                 },
                 eventHandlers: {
                     click: function(e, id, mapElem, textElem) {
-                        $("#map-container").hide(500)
-                        $("#news-container").show(500)
-                        $("#news-content").attr("data-areas", id)
-                        fetchNews(id)
+                        countryCodes.push(id)
+                        if (countryCodes.length === 2) {
+                            $("#map-container").hide(500)
+                            $("#news-container").show(500)
+
+                            fetchNews(countryCodes[0], countryCodes[1])
+                            console.log("countryCodes, show action", countryCodes)
+                        }
+                        //
+                        var newData = {
+                            "areas": {}
+                        }
+                        newData.areas[id] = {
+                            attrs: {
+                                fill: "#5ba4ff"
+                            }
+                        };
+                        $(".map_container").trigger('update', [{ mapOptions: newData }]);
                         // var newData = {
                         //     'areas': {}
                         // };
